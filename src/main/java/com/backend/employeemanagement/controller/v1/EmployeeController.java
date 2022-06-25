@@ -1,6 +1,9 @@
 package com.backend.employeemanagement.controller.v1;
 
+import com.backend.employeemanagement.constant.AttendanceAction;
 import com.backend.employeemanagement.dto.EmployeeDto;
+import com.backend.employeemanagement.dto.EmployeeHistoryDto;
+import com.backend.employeemanagement.service.EmployeeHistoryService;
 import com.backend.employeemanagement.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +18,9 @@ public class EmployeeController {
 
     @Autowired
     private EmployeeService employeeService;
+
+    @Autowired
+    private EmployeeHistoryService employeeHistoryService;
 
     @GetMapping
     public ResponseEntity<List<EmployeeDto>> getAllEmployees(){
@@ -44,6 +50,18 @@ public class EmployeeController {
     public ResponseEntity<Void> deleteEmployeeById(@PathVariable("id") Long id){
         employeeService.deleteEmployeeById(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/{id}/check-in")
+    public ResponseEntity<EmployeeHistoryDto> checkInEmployee(@PathVariable("id") Long id){
+        EmployeeHistoryDto employeeHistory = employeeHistoryService.addAttendance(id, AttendanceAction.CHECK_IN);
+        return ResponseEntity.ok(employeeHistory);
+    }
+
+    @PostMapping("/{id}/check-out")
+    public ResponseEntity<EmployeeHistoryDto> checkOutEmployee(@PathVariable("id") Long id){
+        EmployeeHistoryDto employeeHistory = employeeHistoryService.addAttendance(id, AttendanceAction.CHECK_OUT);
+        return ResponseEntity.ok(employeeHistory);
     }
 
 }

@@ -27,7 +27,7 @@ public class EmployeeHistory {
     @Column(name = "date_time")
     private LocalDateTime dateTime;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "employee_id")
     private Employee employee;
 
