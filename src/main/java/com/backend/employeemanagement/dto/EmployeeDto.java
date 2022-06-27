@@ -1,12 +1,14 @@
 package com.backend.employeemanagement.dto;
 
 import com.backend.employeemanagement.constant.EmployeeStatus;
+import com.backend.employeemanagement.model.EmployeeHistory;
 import lombok.*;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 @Setter
@@ -28,5 +30,7 @@ public class EmployeeDto {
 
     @NotNull
     private EmployeeStatus status;
+
+    private List<EmployeeHistoryDto> history;
 
 }

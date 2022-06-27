@@ -5,6 +5,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Table(name = "employee")
@@ -32,5 +33,8 @@ public class Employee {
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
     private EmployeeStatus status;
+
+    @OneToMany(mappedBy = "employee")
+    private List<EmployeeHistory> history;
 
 }
