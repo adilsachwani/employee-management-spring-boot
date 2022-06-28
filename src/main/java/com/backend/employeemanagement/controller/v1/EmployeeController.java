@@ -6,7 +6,6 @@ import com.backend.employeemanagement.dto.EmployeeHistoryDto;
 import com.backend.employeemanagement.service.EmployeeHistoryService;
 import com.backend.employeemanagement.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -23,45 +22,38 @@ public class EmployeeController {
     private EmployeeHistoryService employeeHistoryService;
 
     @GetMapping
-    public ResponseEntity<List<EmployeeDto>> getAllEmployees(){
-        List<EmployeeDto> employees = employeeService.getAllEmployees();
-        return ResponseEntity.ok(employees);
+    public List<EmployeeDto> getAllEmployees(){
+        return employeeService.getAllEmployees();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<EmployeeDto> getEmployeeById(@PathVariable("id") Long id){
-        EmployeeDto employee = employeeService.getEmployeeById(id);
-        return ResponseEntity.ok(employee);
+    public EmployeeDto getEmployeeById(@PathVariable("id") Long id){
+        return employeeService.getEmployeeById(id);
     }
 
     @PostMapping
-    public ResponseEntity<EmployeeDto> createEmployee(@Valid @RequestBody EmployeeDto employeeDto){
-        EmployeeDto employee  = employeeService.createEmployee(employeeDto);
-        return ResponseEntity.ok(employee);
+    public EmployeeDto createEmployee(@Valid @RequestBody EmployeeDto employeeDto){
+        return employeeService.createEmployee(employeeDto);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<EmployeeDto> updateEmployee(@PathVariable("id") Long id, @RequestBody EmployeeDto employeeDto){
-        EmployeeDto employee  = employeeService.updateEmployee(id, employeeDto);
-        return ResponseEntity.ok(employee);
+    public EmployeeDto updateEmployee(@PathVariable("id") Long id, @RequestBody EmployeeDto employeeDto){
+        return employeeService.updateEmployee(id, employeeDto);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteEmployeeById(@PathVariable("id") Long id){
+    public void deleteEmployeeById(@PathVariable("id") Long id){
         employeeService.deleteEmployeeById(id);
-        return ResponseEntity.noContent().build();
     }
 
     @PostMapping("/{id}/check-in")
-    public ResponseEntity<EmployeeHistoryDto> checkInEmployee(@PathVariable("id") Long id){
-        EmployeeHistoryDto employeeHistory = employeeHistoryService.addAttendance(id, AttendanceAction.CHECK_IN);
-        return ResponseEntity.ok(employeeHistory);
+    public EmployeeHistoryDto checkInEmployee(@PathVariable("id") Long id){
+        return employeeHistoryService.addAttendance(id, AttendanceAction.CHECK_IN);
     }
 
     @PostMapping("/{id}/check-out")
-    public ResponseEntity<EmployeeHistoryDto> checkOutEmployee(@PathVariable("id") Long id){
-        EmployeeHistoryDto employeeHistory = employeeHistoryService.addAttendance(id, AttendanceAction.CHECK_OUT);
-        return ResponseEntity.ok(employeeHistory);
+    public EmployeeHistoryDto checkOutEmployee(@PathVariable("id") Long id){
+        return employeeHistoryService.addAttendance(id, AttendanceAction.CHECK_OUT);
     }
 
 }

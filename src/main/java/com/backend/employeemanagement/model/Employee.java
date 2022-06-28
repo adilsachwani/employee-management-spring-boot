@@ -34,7 +34,7 @@ public class Employee {
     @Column(name = "status")
     private EmployeeStatus status;
 
-    @OneToMany(mappedBy = "employee")
+    @OneToMany(mappedBy = "employee", cascade = CascadeType.REMOVE)
     private List<EmployeeHistory> history;
 
 }
